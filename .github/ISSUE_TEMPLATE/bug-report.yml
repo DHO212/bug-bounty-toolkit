@@ -1,0 +1,77 @@
+name: "🐛 Bug Report"
+description: Report a bug or issue with the repository
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below.
+  - type: input
+    id: version
+    attributes:
+      label: "Version / Commit"
+      description: "What version or commit are you using?"
+      placeholder: "e.g., latest commit on main"
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: "Bug Description"
+      description: "A clear description of the bug."
+      placeholder: "Describe what went wrong..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to Reproduce"
+      description: "How can we reproduce this issue?"
+      placeholder: |
+        1. Run '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behavior"
+      description: "What did you expect to happen?"
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Actual Behavior"
+      description: "What actually happened?"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Environment"
+      description: "OS, browser, terminal, etc."
+      placeholder: |
+        OS: Ubuntu 22.04
+        Browser: Firefox 115
+        Shell: Bash 5.1
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots / Logs"
+      description: "If applicable, add screenshots or error logs."
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched existing issues"
+          required: true
+        - label: "I am using the latest version"
+          required: false

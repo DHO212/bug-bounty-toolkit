@@ -1,0 +1,78 @@
+name: "📅 Weekly Update"
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  weekly-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update README and wordlists
+        run: |
+          CURRENT_DATE=$(date -u +"%Y-%m-%d")
+
+          # Update Last Updated badge
+          if grep -q "last.updated:" README.md; then
+            sed -i "s|last updated: .*|last updated: $CURRENT_DATE|g" README.md
+          else
+            sed -i "/^!\[License/a [![Last Updated](https://img.shields.io/badge/last%20updated-$CURRENT_DATE-blue.svg)](https://github.com/${GITHUB_REPOSITORY})" README.md
+          fi
+
+          # Append curated subdomains to wordlists if they exist
+          CURATED_SUBS="admin mail webmail ftp ssh vpn api staging dev test beta preview demo sandbox lab internal intranet portal dashboard control panel manage git gitlab jenkins ci cd build deploy"
+
+          if [ -f wordlists/common-subdomains.txt ]; then
+            ADDED=0
+            for sub in $CURATED_SUBS; do
+              if ! grep -qx "$sub" wordlists/common-subdomains.txt; then
+                echo "$sub" >> wordlists/common-subdomains.txt
+                ADDED=$((ADDED + 1))
+              fi
+            done
+            if [ "$ADDED" -gt 0 ]; then
+              echo "Added $ADDED new subdomains to wordlists"
+            fi
+          fi
+
+          # Count tools referenced in README
+          TOOL_COUNT=$(grep -cE 'https://github.com/' README.md || echo 0)
+
+          # Add or update weekly stats
+          sed -i '/<!-- WEEKLY_STATS_START -->/,/<!-- WEEKLY_STATS_END -->/d' README.md
+
+          {
+            echo ""
+            echo "---"
+            echo ""
+            echo "<!-- WEEKLY_STATS_START -->"
+            echo "## 📊 Weekly Stats"
+            echo ""
+            printf "| Metric | Value |\n"
+            printf "|--------|-------|\n"
+            printf "| Tools Referenced | **%s** |\n" "$TOOL_COUNT"
+            printf "| Last Updated | **%s** |\n" "$CURRENT_DATE"
+            echo "<!-- WEEKLY_STATS_END -->"
+          } >> README.md
+
+      - name: Commit and push changes
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📊 Weekly update: badge refresh, wordlists and stats — $(date -u +%Y-%m-%d)"
+            git push
+          fi

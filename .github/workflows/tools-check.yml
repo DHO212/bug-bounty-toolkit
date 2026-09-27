@@ -1,0 +1,85 @@
+name: "🔍 Tools Health Check"
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Verify referenced tool repos
+        run: |
+          CURRENT_DATE=$(date -u +"%Y-%m-%d")
+          CHANGES=0
+          ISSUES=""
+
+          # Extract GitHub repo URLs from README
+          TOOLS=$(grep -oE 'https://github.com/[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+' README.md | sort -u)
+
+          echo "Checking tools referenced in README..."
+          echo "$TOOLS" | while read -r tool_url; do
+            REPO_PATH=$(echo "$tool_url" | sed 's|https://github.com/||')
+
+            # Check if repo exists via GitHub API
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/$REPO_PATH")
+
+            if [ "$HTTP_CODE" = "404" ]; then
+              echo "DELETED: $REPO_PATH"
+              ISSUES="$ISSUES\n- ❌ **$REPO_PATH** — Repository deleted (404)"
+              CHANGES=1
+            elif [ "$HTTP_CODE" = "200" ]; then
+              # Check if archived
+              ARCHIVED=$(curl -s \
+                -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                "https://api.github.com/repos/$REPO_PATH" | jq -r '.archived')
+              if [ "$ARCHIVED" = "true" ]; then
+                echo "ARCHIVED: $REPO_PATH"
+                ISSUES="$ISSUES\n- ⚠️ **$REPO_PATH** — Repository archived"
+                CHANGES=1
+              else
+                echo "OK: $REPO_PATH"
+              fi
+            else
+              echo "UNEXPECTED ($HTTP_CODE): $REPO_PATH"
+            fi
+          done
+
+          # Update README with health status
+          sed -i '/<!-- TOOLS_HEALTH_START -->/,/<!-- TOOLS_HEALTH_END -->/d' README.md
+
+          {
+            echo ""
+            echo "<!-- TOOLS_HEALTH_START -->"
+            echo "## 🔍 Tool Health Status"
+            echo ""
+            printf "| Check Date | Status |\n"
+            printf "|------------|--------|\n"
+            printf "| Last Checked | **%s** |\n" "$CURRENT_DATE"
+            echo "| Checked By | [GitHub Actions](https://github.com/${GITHUB_REPOSITORY}/actions) |"
+            echo "<!-- TOOLS_HEALTH_END -->"
+          } >> README.md
+
+      - name: Commit and push changes
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🔍 Weekly tools health check — $(date -u +%Y-%m-%d)"
+            git push
+          fi

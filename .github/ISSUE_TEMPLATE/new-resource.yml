@@ -1,0 +1,83 @@
+name: "📦 New Resource / Payload Submission"
+description: Submit a new resource, tool, payload, or link
+title: "[Resource]: "
+labels: ["new-resource", "content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Please provide details about the resource you're submitting.
+  - type: input
+    id: name
+    attributes:
+      label: "Resource Name"
+      description: "Name of the tool, payload, or resource"
+      placeholder: "e.g., sqlmap, custom XSS payload"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: "URL"
+      description: "Link to the resource (GitHub, website, etc.)"
+      placeholder: "https://github.com/..."
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category"
+      description: "What category does this fit?"
+      options:
+        - XSS
+        - SQLi
+        - LFI
+        - SSRF
+        - Command Injection
+        - SSTI
+        - XXE
+        - CSRF
+        - NoSQL
+        - Reverse Shells
+        - Privilege Escalation
+        - Recon Tool
+        - Scanner
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Brief description of the resource and what it does."
+    validations:
+      required: true
+  - type: textarea
+    id: usage
+    attributes:
+      label: "Usage Example"
+      description: "Show how to use this resource."
+      placeholder: |
+        ```bash
+        ./tool.sh -t target.com
+        ```
+    validations:
+      required: false
+  - type: textarea
+    id: reference
+    attributes:
+      label: "References"
+      description: "Any writeups, blog posts, or documentation?"
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "Resource is related to security / bug bounty"
+          required: true
+        - label: "Resource is publicly available"
+          required: true
+        - label: "I have tested this resource"
+          required: false
