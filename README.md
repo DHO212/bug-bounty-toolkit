@@ -1,6 +1,7 @@
 # 🎯 Bug Bounty Toolkit
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Last Updated](https://img.shields.io/badge/last%20updated-2026-09-28-blue.svg)](https://github.com/DHO212/bug-bounty-toolkit)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 ![GitHub stars](https://img.shields.io/github/stars/DHO212/bug-bounty-toolkit?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/DHO212/bug-bounty-toolkit?style=social)
@@ -204,3 +205,14 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Last Checked | **2026-09-28** |
 | Checked By | [GitHub Actions](https://github.com/DHO212/bug-bounty-toolkit/actions) |
 <!-- TOOLS_HEALTH_END -->
+
+---
+
+<!-- WEEKLY_STATS_START -->
+## 📊 Weekly Stats
+
+| Metric | Value |
+|--------|-------|
+| Tools Referenced | **13** |
+| Last Updated | **2026-09-28** |
+<!-- WEEKLY_STATS_END -->
