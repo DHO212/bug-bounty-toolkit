@@ -195,3 +195,12 @@ MIT License — see [LICENSE](LICENSE) for details.
 <p align="center">
   <b>⚡ Built for bug bounty hunters, by bug bounty hunters ⚡</b>
 </p>
+
+<!-- TOOLS_HEALTH_START -->
+## 🔍 Tool Health Status
+
+| Check Date | Status |
+|------------|--------|
+| Last Checked | **2026-09-28** |
+| Checked By | [GitHub Actions](https://github.com/DHO212/bug-bounty-toolkit/actions) |
+<!-- TOOLS_HEALTH_END -->
