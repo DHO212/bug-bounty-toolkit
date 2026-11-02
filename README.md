@@ -1,6 +1,7 @@
 # 🎯 Bug Bounty Toolkit
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Last Updated](https://img.shields.io/badge/last%20updated-2026-11-02-blue.svg)](https://github.com/DHO212/bug-bounty-toolkit)
 [![Last Updated](https://img.shields.io/badge/last%20updated-2026-10-26-blue.svg)](https://github.com/DHO212/bug-bounty-toolkit)
 [![Last Updated](https://img.shields.io/badge/last%20updated-2026-10-19-blue.svg)](https://github.com/DHO212/bug-bounty-toolkit)
 [![Last Updated](https://img.shields.io/badge/last%20updated-2026-10-12-blue.svg)](https://github.com/DHO212/bug-bounty-toolkit)
@@ -220,14 +221,6 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
-<!-- WEEKLY_STATS_START -->
-## 📊 Weekly Stats
-
-| Metric | Value |
-|--------|-------|
-| Tools Referenced | **17** |
-| Last Updated | **2026-10-26** |
-<!-- WEEKLY_STATS_END -->
 
 <!-- TOOLS_HEALTH_START -->
 ## 🔍 Tool Health Status
@@ -237,3 +230,14 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Last Checked | **2026-11-02** |
 | Checked By | [GitHub Actions](https://github.com/DHO212/bug-bounty-toolkit/actions) |
 <!-- TOOLS_HEALTH_END -->
+
+---
+
+<!-- WEEKLY_STATS_START -->
+## 📊 Weekly Stats
+
+| Metric | Value |
+|--------|-------|
+| Tools Referenced | **18** |
+| Last Updated | **2026-11-02** |
+<!-- WEEKLY_STATS_END -->
