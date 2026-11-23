@@ -228,14 +228,6 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 
 
-<!-- TOOLS_HEALTH_START -->
-## 🔍 Tool Health Status
-
-| Check Date | Status |
-|------------|--------|
-| Last Checked | **2026-11-16** |
-| Checked By | [GitHub Actions](https://github.com/DHO212/bug-bounty-toolkit/actions) |
-<!-- TOOLS_HEALTH_END -->
 
 ---
 
@@ -247,3 +239,12 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Tools Referenced | **19** |
 | Last Updated | **2026-11-16** |
 <!-- WEEKLY_STATS_END -->
+
+<!-- TOOLS_HEALTH_START -->
+## 🔍 Tool Health Status
+
+| Check Date | Status |
+|------------|--------|
+| Last Checked | **2026-11-23** |
+| Checked By | [GitHub Actions](https://github.com/DHO212/bug-bounty-toolkit/actions) |
+<!-- TOOLS_HEALTH_END -->
